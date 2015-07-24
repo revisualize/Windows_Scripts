@@ -29,7 +29,7 @@ function Get-Time
       .DESCRIPTION
          Uses WMI to get the time of a remote server
  
-      .PARAMETER  ServerName
+      .PARAMETER  ComputerName
          The Server to get the date and time from
  
       .EXAMPLE
