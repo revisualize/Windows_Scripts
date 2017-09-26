@@ -5,6 +5,7 @@ Function Get-RemoteServices {
             [string]$ComputerName
           )
     Try {
+        Import-Module ActiveDirectory
         If ([bool](Get-ADComputer -Identity $ComputerName)) {
             Get-WmiObject Win32_service -ComputerName $ComputerName | `
                 Where-Object {$_.StartMode -ne "Disabled"} | `
