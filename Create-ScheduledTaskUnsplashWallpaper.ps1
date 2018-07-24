@@ -6,9 +6,9 @@ Function Create-ScheduledTaskUnsplashWallpaper {
 
     $TaskDescription = "One hour timer to Get a new random wallpaper from Save-UnsplashPicture.ps1"
 
-    $TaskExcecute = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+    $TaskExcecute = "powershell.exe"
 
-    $TaskScript = "C:\Users\joseph\OneDrive\Documents\PowerShell\Save-UnsplashPicture.ps1"
+    $TaskScript = ".\Save-UnsplashPicture.ps1"
 
     $TaskSettings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit 00:10:00 -RunOnlyIfNetworkAvailable -StartWhenAvailable -DisallowStartOnRemoteAppSession
 
