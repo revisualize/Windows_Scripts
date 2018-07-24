@@ -28,7 +28,6 @@ Function Create-ScheduledTaskUnsplashWallpaper {
     $TaskAction += New-ScheduledTaskAction -Execute $TaskExcecute -Argument $TaskScript -WorkingDirectory $TaskWorkingDirectory
     $TaskAction += New-ScheduledTaskAction -Execute $TaskExcecute -Argument $TaskDeleteFiles -WorkingDirectory $TaskWorkingDirectory
 
-    $TaskAction
     $TaskTrigger = New-ScheduledTaskTrigger -Daily -At 1:00:00 -ThrottleLimit 30
 
     Register-ScheduledTask -TaskName $TaskName -Action $TaskAction -Settings $TaskSettings -Trigger $TaskTrigger -Description $TaskDescription
