@@ -22,7 +22,7 @@ Function Create-ScheduledTaskUnsplashWallpaper {
 
     $TaskDeleteFiles = 'Get-ChildItem -Path ' 
     $TaskDeleteFiles += $TaskWorkingDirectory
-    $TaskDeleteFiles += ' -Recurse -Force | Where-Object { !$_.PSIsContainer -and $_.CreationTime -lt \$((Get-Date).AddDays(-5)) } | Remove-Item -Force'
+    $TaskDeleteFiles += ' -Recurse -Force | Where-Object { !$_.PSIsContainer -and $_.CreationTime -lt $((Get-Date).AddDays(-5)) } | Remove-Item -Force'
     
     $TaskAction = @()
     $TaskAction += New-ScheduledTaskAction -Execute $TaskExcecute -Argument $TaskScript -WorkingDirectory $TaskWorkingDirectory
