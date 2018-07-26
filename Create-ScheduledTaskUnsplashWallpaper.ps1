@@ -4,7 +4,7 @@ Function Create-ScheduledTaskUnsplashWallpaper {
 
     $TaskWorkingDirectory = "D:\Unsplash_Walls\"
 
-    $TaskScript = "C:\Users\joseph\OneDrive\Documents\PowerShell\Save-UnsplashPicture.ps1"
+    $TaskScript = "\PowerShell\Save-UnsplashPicture.ps1"
 
 
 
