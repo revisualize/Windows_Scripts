@@ -1,10 +1,16 @@
 function Save-UnsplashPicture () {
-
     # https://source.unsplash.com/3840x2160/?nature
     # Invoke-WebRequest -Uri 'https://source.unsplash.com/3840x2160/?boat,sail' -UseBasicParsing
-
-    $Categories = "nature,water,tree"
+        
     $SaveLocation = "D:\Unsplash_Walls\"
+
+    $CategoriesArr = @("water","trees","mountain","sail","snow","lava","ocean","scenic","peak","summit","cloud","sky") | Sort-Object {Get-Random}
+    
+    $Categories = "nature,"
+    $Categories += "$($CategoriesArr[0]),$($CategoriesArr[1])"
+
+
+
 
     ###########################################
 
@@ -27,6 +33,6 @@ function Save-UnsplashPicture () {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $WebClient = New-Object System.Net.WebClient
     $WebClient.DownloadFile($URL, $Output)
-    # [String]$Output
+    [String]$Output
 }
 Save-UnsplashPicture
