@@ -1,4 +1,5 @@
 function Save-UnsplashPicture () {
+
     # https://source.unsplash.com/3840x2160/?nature
     # Invoke-WebRequest -Uri 'https://source.unsplash.com/3840x2160/?boat,sail' -UseBasicParsing
         
@@ -17,7 +18,7 @@ function Save-UnsplashPicture () {
     If (-Not (Test-Path -Path $SaveLocation)) {
         New-Item -Path $SaveLocation -ItemType "directory"
     }
-    $Timestamp = Get-Date -Format o | ForEach-Object {$_ -replace ":", "."}
+    $Timestamp = Get-Date -Format s | ForEach-Object {$_ -replace ":", "."}
     function Get-DisplayResolution {
         $VideoResX = ((Get-WmiObject -Class Win32_DesktopMonitor | Select-Object ScreenWidth).ScreenWidth)
         $VideoResY = ((Get-WmiObject -Class Win32_DesktopMonitor | Select-Object ScreenHeight).ScreenHeight)
@@ -36,3 +37,4 @@ function Save-UnsplashPicture () {
     [String]$Output
 }
 Save-UnsplashPicture
+
