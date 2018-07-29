@@ -4,7 +4,7 @@ Function Create-ScheduledTaskUnsplashWallpaper {
 
     $TaskWorkingDirectory = "D:\Unsplash_Walls\"
 
-    $TaskScript = "\PowerShell\Save-UnsplashPicture.ps1"
+    $TaskScript = "C:\Users\joseph\OneDrive\Documents\PowerShell\Save-UnsplashPicture.ps1"
 
 
 
@@ -26,11 +26,11 @@ Function Create-ScheduledTaskUnsplashWallpaper {
 
     $TaskDeleteFiles = 'Get-ChildItem -Path ' 
     $TaskDeleteFiles += $TaskWorkingDirectory
-    $TaskDeleteFiles += ' -Recurse -Force | Where-Object { !$_.PSIsContainer -and $_.CreationTime -lt $((Get-Date).AddDays(-5)) } | Remove-Item -Force'
+    $TaskDeleteFiles += ' -Recurse -Force | Where-Object { !$_.PSIsContainer -and $_.CreationTime -lt $((Get-Date).AddDays(-15)) } | Remove-Item -Force'
     
     $TaskAction = @()
-    $TaskAction += New-ScheduledTaskAction -Execute $TaskExecute -Argument $TaskScript -WorkingDirectory $TaskWorkingDirectory
-    $TaskAction += New-ScheduledTaskAction -Execute $TaskExecute -Argument $TaskDeleteFiles -WorkingDirectory $TaskWorkingDirectory
+    $TaskAction += New-ScheduledTaskAction -Execute $TaskExecute -Argument "-nologo -windowstyle Hidden $($TaskScript)" -WorkingDirectory $TaskWorkingDirectory
+    $TaskAction += New-ScheduledTaskAction -Execute $TaskExecute -Argument "-nologo -windowstyle Hidden $($TaskDeleteFiles)" -WorkingDirectory $TaskWorkingDirectory
 
     $TaskRepetition = (New-TimeSpan -Minutes 60)
     $TaskDuration = (New-TimeSpan -Days 20000)    #54.8 years 
