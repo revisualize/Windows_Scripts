@@ -5,10 +5,9 @@ function Save-UnsplashPicture () {
         
     $SaveLocation = "D:\Unsplash_Walls\"
 
-    $CategoriesArr = @("water","trees","mountain","sail","snow","lava","ocean","scenic","peak","summit","cloud","sky") | Sort-Object {Get-Random}
+    $CategoriesArr = @("nature","water","trees","mountain","sail","yacht","snow","lava","ocean","scenic","moon","peak","summit","cloud","sky") | Sort-Object {Get-Random}
     
-    $Categories = "nature,"
-    $Categories += "$($CategoriesArr[0]),$($CategoriesArr[1])"
+    $Categories = "$($CategoriesArr[0]),$($CategoriesArr[1])"
 
 
 
@@ -34,7 +33,12 @@ function Save-UnsplashPicture () {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $WebClient = New-Object System.Net.WebClient
     $WebClient.DownloadFile($URL, $Output)
-    [String]$Output
+    #[String]$Output
 }
 Save-UnsplashPicture
 
+
+<#
+$cert = @(Get-ChildItem cert:\CurrentUser\My -CodeSigning)[0] 
+Set-AuthenticodeSignature .\Save-UnsplashPicture.ps1 $cert
+#>
