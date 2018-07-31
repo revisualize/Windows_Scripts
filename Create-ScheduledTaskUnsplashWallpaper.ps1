@@ -26,11 +26,16 @@ Function Create-ScheduledTaskUnsplashWallpaper {
 
     $TaskDeleteFiles = 'Get-ChildItem -Path ' 
     $TaskDeleteFiles += $TaskWorkingDirectory
-    $TaskDeleteFiles += ' -Recurse -Force | Where-Object { !$_.PSIsContainer -and $_.CreationTime -lt $((Get-Date).AddDays(-15)) } | Remove-Item -Force'
+    $TaskDeleteFiles += ' -Recurse -Force | Where-Object { !$_.PSIsContainer -and ($_.CreationTime -lt $((Get-Date).AddDays(-15)) -or ($_.Length -lt 275kb)) } | Remove-Item -Force'
     
+    $TaskDeleteDuplicates = 'Get-ChildItem -Path '
+    $TaskDeleteDuplicates += $TaskWorkingDirectory
+    $TaskDeleteDuplicates += ' -Recurse -Force | Get-FileHash | Group-Object -Property Hash | Where-Object {$_.count -gt 1 } | % { $_.group | Select-Object -Skip 1} | Remove-Item -Force' 
+
     $TaskAction = @()
     $TaskAction += New-ScheduledTaskAction -Execute $TaskExecute -Argument "-nologo -windowstyle Hidden $($TaskScript)" -WorkingDirectory $TaskWorkingDirectory
     $TaskAction += New-ScheduledTaskAction -Execute $TaskExecute -Argument "-nologo -windowstyle Hidden $($TaskDeleteFiles)" -WorkingDirectory $TaskWorkingDirectory
+    $TaskAction += New-ScheduledTaskAction -Execute $TaskExecute -Argument "-nologo -windowstyle Hidden $($TaskDeleteDuplicates)" -WorkingDirectory $TaskWorkingDirectory
 
     $TaskRepetition = (New-TimeSpan -Minutes 60)
     $TaskDuration = (New-TimeSpan -Days 20000)    #54.8 years 
