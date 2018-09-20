@@ -19,7 +19,7 @@ Function Connect-RDP {
                        $Host
         )
 
-        Return [System.Net.Dns]::GetHostByAddress( [System.Net.Dns]::GetHostByName($ComputerName).AddressList.IpAddressToString ).HostName
+        Return [System.Net.Dns]::GetHostByAddress( [System.Net.Dns]::GetHostByName($Host).AddressList.IpAddressToString ).HostName
     }
     
     $ServerHostName = Get-DnsHostName -Host $ComputerName
